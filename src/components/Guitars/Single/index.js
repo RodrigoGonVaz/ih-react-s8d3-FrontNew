@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import GuitarContext from '../../../context/Guitar/GuitarContex'
 import { useParams } from 'react-router-dom'
 
@@ -11,14 +11,19 @@ const Single = () => {
     const id = params.id
     //console.log(params, id) //{id: '61ba1b01dae493ac19bd1ac9'} // '61ba1b01dae493ac19bd1ac9'
 
+
+    useEffect(() => {
+      getGuitar(id)
+    }, [])
+
     return (
 		<div>
 			Página individual de guitarra			
 
 
-			<button onClick={() => { getGuitar(id) }}>
+			{/* <button onClick={() => { getGuitar(id) }}>
 				Obtener guitarra individual
-			</button>
+			</button> */}
 
             <h1> {singleGuitar.nombre} </h1>
             <p> {singleGuitar.descripcion} </p>

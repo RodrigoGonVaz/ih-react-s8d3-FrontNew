@@ -64,6 +64,13 @@ const StoreState = (props) => {
         })
     }
 
+    const createStoreFunction= async (form) => {
+
+		const res = await axiosClient.post("stores/create", form)
+
+		console.log(res) // {data: {…}, status: 200, statusText: 'OK', headers: {…}, config: {…}, …}
+
+	}
 
     //4. Retorno
     return (
@@ -74,7 +81,8 @@ const StoreState = (props) => {
             singleStore: globalState.singleStore,
             changeText,
             getStores,
-            getStore
+            getStore,
+            createStoreFunction
         }} >
                 {/* Es la representacion de todos los componentes del router - Outlet(de estado global) */}
             {props.children}

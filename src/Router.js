@@ -13,8 +13,11 @@ import Stores from './components/Stores'
 import SingleStore from './components/Stores/SingleStore'
 import GuitarState from './context/Guitar/GuitarState'
 import StoreState from './context/Store/StoreState'
+import CreateGuitar from './components/Guitars/Create'
+import CreateStore from './components/Stores/CreateStore'
 
 
+  
 
 // 2. FUNCIÓN
 const Router = () => {
@@ -35,6 +38,9 @@ const Router = () => {
                                 <Route path="guitarras" element={<Guitars />} />
                                 {/* localhost:3000/guitarras/:id */}
                                 <Route path="tiendas" element={<Stores />} />
+                                {/* localhost:3000/guitarras/crear */}
+                                <Route path="guitarras/crear" element={<CreateGuitar />} />
+                                <Route path="tiendas/crear" element={<CreateStore />} />
                                 <Route path="guitarras/:id" element={<Single />} />
                                 <Route path="tiendas/:id" element={<SingleStore />} />
 
