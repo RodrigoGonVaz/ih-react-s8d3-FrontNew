@@ -18,8 +18,9 @@ import StoreState from './context/Store/StoreState'
 import CreateGuitar from './components/Guitars/Create'
 import CreateStore from './components/Stores/CreateStore'
 import UserState from './context/User/UserState'
-
-
+import Auth from './routes/Auth'
+import Profile from "./components/User/Profile"
+import Private from "./routes/Private"
   
 
 // 2. FUNCIÓN
@@ -27,36 +28,46 @@ const Router = () => {
 	
 	return (
 		<>
-        <UserState>
-            <StoreState>
-                <GuitarState>
-                    <BrowserRouter>
-                        <Routes>
-                            <Route path="/" element={<Layout />}>
-                                {/* localhost:3000/ */}
-                                <Route index element={<Home />} />
-                                {/* localhost:3000/registro */}
-                                <Route path="registro" element={<Register />} />
-                                {/* localhost:3000/iniciar-sesion */}
-                                <Route path="iniciar-sesion" element={<Login />} />
-                                <Route path="guitarras" element={<Guitars />} />
-                                {/* localhost:3000/guitarras/:id */}
-                                <Route path="tiendas" element={<Stores />} />
-                                {/* localhost:3000/guitarras/crear */}
-                                <Route path="guitarras/crear" element={<CreateGuitar />} />
-                                <Route path="tiendas/crear" element={<CreateStore />} />
-                                <Route path="guitarras/:id" element={<Single />} />
-                                <Route path="tiendas/:id" element={<SingleStore />} />
-                                {/* localhost:3000/guitarras/:id/editar */}
-                                <Route path="guitarras/:id/editar" element={<EditGuitar />} />
-                                <Route path="tiendas/:id/editar" element={<EditStore />} />
+            <UserState>
+                <StoreState>
+                    <GuitarState>
+                        <BrowserRouter>
+                            <Routes>
+                                <Route path="/" element={<Layout />}>
+                                    {/* localhost:3000/ */}
+                                    <Route index element={<Home />} />
+                                    
+                                    {/* RUTAS DE AUTENTICACION */}
+                                    {/* EVITA QUE UN USUARIO LOGGEADOPUEDA ENTRARA REGISTRO.JS Y LOGIN.JS */}
+                                    {/* localhost:3000/registro */}
+                                    {/* <Route path="registro" element={<Register />} /> */}
+                                    <Route path="registro" element={<Auth component={Register} />} />
 
-                            </Route>
-                        </Routes>
-                    </BrowserRouter>
-                </GuitarState>
-            </StoreState>
-        </UserState>
+                                    {/* localhost:3000/iniciar-sesion */}
+                                    {/* <Route path="iniciar-sesion" element={<Login />} /> */}
+                                    <Route path="iniciar-sesion" element={<Auth component={Login} />} />
+
+                                    {/* localhost:3000/profile */}
+							        <Route path="profile" element={<Private component={Profile} />} />
+
+                                    <Route path="guitarras" element={<Guitars />} />
+                                    {/* localhost:3000/guitarras/:id */}
+                                    <Route path="tiendas" element={<Stores />} />
+                                    {/* localhost:3000/guitarras/crear */}
+                                    <Route path="guitarras/crear" element={<CreateGuitar />} />
+                                    <Route path="tiendas/crear" element={<CreateStore />} />
+                                    <Route path="guitarras/:id" element={<Single />} />
+                                    <Route path="tiendas/:id" element={<SingleStore />} />
+                                    {/* localhost:3000/guitarras/:id/editar */}
+                                    <Route path="guitarras/:id/editar" element={<EditGuitar />} />
+                                    <Route path="tiendas/:id/editar" element={<EditStore />} />
+
+                                </Route>
+                            </Routes>
+                        </BrowserRouter>
+                    </GuitarState>
+                </StoreState>
+            </UserState>
 		</>
 	)
 }

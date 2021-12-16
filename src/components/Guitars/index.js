@@ -46,10 +46,10 @@ const Guitars = () => {
 						<div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
 
 							{
-								guitars.map(element => {
+								guitars.map((element, i) => {
 									return (
 										<>
-											<div className="">
+											<div key={i} className="">
 												<div className="rounded-lg bg-gray-200 aspect-w-1 aspect-h-1 group-hover:opacity-75">
 													<Link to={`/guitarras/${element._id}`} >
 													<img src={element.imagen} alt="Imagen de guitarra" className="w-full h-full object-center object-cover" />

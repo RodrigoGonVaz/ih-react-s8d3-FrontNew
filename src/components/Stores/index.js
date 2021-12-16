@@ -43,10 +43,10 @@ const Stores = () => {
 						<div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
 
 							{
-								stores.map(element => {
+								stores.map((element, i) => {
 									return (
 										<>
-											<div className="">
+											<div key={i} className="">
 												<div className="rounded-lg bg-gray-200 aspect-w-1 aspect-h-1 group-hover:opacity-75">
 													<Link to={`/tiendas/${element._id}`} >
 													<img src="https://editorial01.shutterstock.com/wm-preview-1500/853967b/e221f591/the-guitar-store-has-a-store-front-painted-like-a-fender-amplifier-southampton-britain-shutterstock-editorial-853967b.jpg" alt="Imagen de guitarra" className="w-full h-full object-center object-cover" />

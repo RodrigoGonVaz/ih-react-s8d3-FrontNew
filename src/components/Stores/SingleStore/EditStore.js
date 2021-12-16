@@ -15,7 +15,8 @@ const EditStore = () => {
 
 	const {
 		getStore,
-        updateStore 
+        updateStore,
+        singleStore 
 	} = ctx
 
 	const {
@@ -30,25 +31,24 @@ const EditStore = () => {
 	})
 
 	// 3. FUNCIONES
+	// USEEFFECT PARA ACTUALIZAR DATOS EN EL ESTADO GLOBAL (guarda los datos)
 	useEffect(() => {
-		// a. FUNCIÓN DE ACTUALIZACIÓN
-		const updateLocalState = async () => {
-			console.log(idStore)
-			// 1. DESCARGAR LOS DATOS DE LA StoreRA DE LA PÁGINA
-			await getStore(idStore)
-			
+        getStore(idStore)
+    }, [])
 
-			// 2. CAMBIAR EL ESTADO CON ESTOS NUEVOS CAMBIOS DEL GLOBAL AL LOCAL
-			setStoreData({
-                domicilio,
-                telefono
-			})
+    // USEEFFECT PARA ACTUALIZAR LOS DATOS DEL ESTADO GLOBAL AL ESTADO LOCAL
+    useEffect(() => {
 
-			// 3. RETURN Y CERRAMOS FUNCIÓN ASÍNCRONA
-			return
-		}
-		    updateLocalState()
-	}, [])
+        const {
+            domicilio,
+            telefono
+        } = ctx.singleStore
+
+        setStoreData({
+            domicilio,
+            telefono
+        })
+    }, [singleStore])
 
 	const handleChange = (e) => {
 		e.preventDefault()
