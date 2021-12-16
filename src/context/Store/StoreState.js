@@ -72,6 +72,18 @@ const StoreState = (props) => {
 
 	}
 
+    const updateStore = async (form, idGuitar) => {
+
+		const res = await axiosClient.put(`stores/edit/${idGuitar}`, form)
+
+		const updateStore = res.data.data
+
+		dispatch({
+			type: "UPDATE_STORE",
+			payload: updateStore
+		})
+	}
+
     //4. Retorno
     return (
         <StoreContext.Provider 
@@ -82,7 +94,8 @@ const StoreState = (props) => {
             changeText,
             getStores,
             getStore,
-            createStoreFunction
+            createStoreFunction,
+            updateStore
         }} >
                 {/* Es la representacion de todos los componentes del router - Outlet(de estado global) */}
             {props.children}

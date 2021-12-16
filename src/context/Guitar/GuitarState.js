@@ -89,6 +89,19 @@ const GuitarState = (props) => {
 
 	}
 
+	const updateGuitar = async (form, idGuitar) => {
+
+		const res = await axiosClient.put(`guitars/edit/${idGuitar}`, form)
+
+		const updatedGuitar = res.data.data
+
+		dispatch({
+			type: "UPDATE_GUITAR",
+			payload: updatedGuitar
+		})
+	}
+
+
     //4. Retorno
     return (
         <GuitarContext.Provider 
@@ -99,7 +112,8 @@ const GuitarState = (props) => {
             changeText,
             getGuitars,
             getGuitar,
-            createGuitar
+            createGuitar,
+            updateGuitar
         }} >
                 {/* Es la representacion de todos los componentes del router - Outlet(de estado global) */}
             {props.children}

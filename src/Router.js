@@ -7,14 +7,17 @@ import Login from './components/Auth/Login'
 import Register from './components/Auth/Register'
 import Guitars from './components/Guitars'
 import Single from './components/Guitars/Single'
+import EditGuitar from './components/Guitars/Single/Edit'
 import Home from './components/Home'
 import Layout from './components/Layout'
 import Stores from './components/Stores'
 import SingleStore from './components/Stores/SingleStore'
+import EditStore from './components/Stores/SingleStore/EditStore'
 import GuitarState from './context/Guitar/GuitarState'
 import StoreState from './context/Store/StoreState'
 import CreateGuitar from './components/Guitars/Create'
 import CreateStore from './components/Stores/CreateStore'
+import UserState from './context/User/UserState'
 
 
   
@@ -24,6 +27,7 @@ const Router = () => {
 	
 	return (
 		<>
+        <UserState>
             <StoreState>
                 <GuitarState>
                     <BrowserRouter>
@@ -43,12 +47,16 @@ const Router = () => {
                                 <Route path="tiendas/crear" element={<CreateStore />} />
                                 <Route path="guitarras/:id" element={<Single />} />
                                 <Route path="tiendas/:id" element={<SingleStore />} />
+                                {/* localhost:3000/guitarras/:id/editar */}
+                                <Route path="guitarras/:id/editar" element={<EditGuitar />} />
+                                <Route path="tiendas/:id/editar" element={<EditStore />} />
 
                             </Route>
                         </Routes>
                     </BrowserRouter>
                 </GuitarState>
             </StoreState>
+        </UserState>
 		</>
 	)
 }

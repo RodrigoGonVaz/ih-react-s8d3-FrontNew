@@ -1,43 +1,67 @@
-import React, { useState, useContext } from 'react'
-import StoreContext from '../../context/Store/StoreContext'
+import React, { useState, useContext, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import StoreContext from '../../../context/Store/StoreContext'
 
 
 
 
+const EditStore = () => {
+    
+    // 1. ESTADO GLOBAL
+	const params = useParams()
+	const idStore = params.id
 
-const CreateStore = () => {
+	const ctx = useContext(StoreContext)
 
-
-    //1. Estado Global
-    const ctx = useContext(StoreContext)
 	const {
-		createStoreFunction // en StoreState
+		getStore,
+        updateStore 
 	} = ctx
 
-	console.log(createStoreFunction) 
+	const {
+		domicilio,
+        telefono,
+	} = ctx.singleStore
 
-    //2. Estado Local
-    const [ newStore, setNewStore ] = useState({
-        domicilio: "",
-        telefono: "",
-    })
+	// 2. ESTADO LOCAL
+	const [storeData, setStoreData] = useState({
+		domicilio: "",
+		telefono: ""
+	})
 
-    // 3. FUNCIONES
+	// 3. FUNCIONES
+	useEffect(() => {
+		// a. FUNCIÓN DE ACTUALIZACIÓN
+		const updateLocalState = async () => {
+			console.log(idStore)
+			// 1. DESCARGAR LOS DATOS DE LA StoreRA DE LA PÁGINA
+			await getStore(idStore)
+			
+
+			// 2. CAMBIAR EL ESTADO CON ESTOS NUEVOS CAMBIOS DEL GLOBAL AL LOCAL
+			setStoreData({
+                domicilio,
+                telefono
+			})
+
+			// 3. RETURN Y CERRAMOS FUNCIÓN ASÍNCRONA
+			return
+		}
+		    updateLocalState()
+	}, [])
+
 	const handleChange = (e) => {
 		e.preventDefault()
-
-		setNewStore({
-			...newStore,
-            //target es la etiqueta HTML y name es lo que esta dentro de la etiqueta y value el valor asignado
+		setStoreData({
+			...storeData,
 			[e.target.name]: e.target.value
-		})		
+		})
 	}
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-
-        createStoreFunction(newStore)
-    }
+	const handleSubmit = (e) => {
+		e.preventDefault()
+		updateStore(storeData, idStore)
+	}
 
 
 	return (
@@ -56,7 +80,8 @@ const CreateStore = () => {
 								<input
 									onChange={ (event) => { handleChange(event) } } 
 									type="text" 
-									name="domicilio"  
+									name="domicilio"
+                                    value={storeData.domicilio}   
 									className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
 							</div>
 
@@ -65,7 +90,8 @@ const CreateStore = () => {
 								<input 
 									onChange={ (event) => { handleChange(event) } } 
 									type="number" 
-									name="telefono" 
+									name="telefono"
+                                    value={storeData.telefono} 
 									className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
 							</div>
                         </div>
@@ -84,4 +110,4 @@ const CreateStore = () => {
 	)
 }
 
-export default CreateStore
+export default EditStore
